@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <!-- ICONS -->
+
     <link rel="apple-touch-icon" sizes="76x76" href="$!contextPath/static/assets/img/apple-icon.png"/>
     <link rel="icon" type="image/png" sizes="96x96" href="$!contextPath/static/assets/img/favicon.png"/>
 
@@ -20,7 +21,7 @@
     <link rel="stylesheet" href="$!contextPath/static/assets/custom/toastr/toastr.css"/>
 
     <link rel="stylesheet" href="$!contextPath/static/assets/custom/bootstrapvalidator/css/bootstrapValidator.min.css"/>
-    <!--<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"/>-->
+##    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"/>
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="$!contextPath/static/assets/css/main.css"/>
@@ -35,12 +36,12 @@
     <script src="$!contextPath/static/assets/custom/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <script src="$!contextPath/static/assets/custom/toastr/toastr.js"></script>
 
-##    <script src="$!contextPath/static/assets/custom/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
-    <!--<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>-->
+    <script src="$!contextPath/static/assets/custom/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
+##    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
+
+    <script src="$!contextPath/static/assets/jquery.serialize-object.js"></script>
 
     <script>
-        console.log("2333333333333333333333");
-        console.log("$!contextPath");
         var contextPath = "$!contextPath";
     </script>
     <script src="$!contextPath/static/js/common.js"></script>
