@@ -1,0 +1,108 @@
+#set($contextPath=$request.getContextPath())
+#set($layout="commons/login_layout.vm")
+
+<!-- WRAPPER -->
+<div id="wrapper">
+	<div class="vertical-align-wrap">
+		<div class="vertical-align-middle">
+			<div class="auth-box ">
+				<div class="left">
+					<div class="content">
+						<div class="header">
+							<div class="logo text-center"><img src="$!contextPath/static/assets/img/logo-dark.png" alt="Klorofil Logo"></div>
+							<p class="lead">Login to your account</p>
+						</div>
+						<form class="form-auth-small" id="login-form">
+							<div class="form-group">
+								<label for="username" class="control-label sr-only">Username</label>
+								<input type="text" class="form-control" id="username" name="username" placeholder="Username" aria-describedby="" >
+							</div>
+							<div class="form-group">
+								<label for="password" class="control-label sr-only">Password</label>
+								<input type="password" class="form-control" id="password" name="password" placeholder="Password" >
+							</div>
+							<label style="margin-right: 0px;font-size: 20px;" id="msg"></label>
+							<div class="form-group clearfix">
+								<label class="fancy-checkbox element-left">
+									<input type="checkbox">
+									<span>Remember me</span>
+								</label>
+							</div>
+							<button type="button" class="btn btn-primary btn-lg btn-block" onclick="login()">LOGIN</button>
+							<div class="bottom">
+								<span class="helper-text"><i class="fa fa-lock"></i> <a href="#">忘记密码?</a></span>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="right">
+					<div class="overlay"></div>
+					<div class="content text">
+						<h1 class="heading">权限管理系统</h1>
+						<p>by The llyonga</p>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+##					#include("templates/commons/footer.vm")
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END WRAPPER -->
+
+<script>
+    // $(function () {
+    //     $('#login-form').bootstrapValidator({
+    //         message: 'This value is not valid',
+    //         feedbackIcons: {
+    //             valid: 'glyphicon glyphicon-ok',
+    //             invalid: 'glyphicon glyphicon-remove',
+    //             validating: 'glyphicon glyphicon-refresh'
+    //         },
+    //         fields: {
+    //             username: {
+    //                 validators: {
+    //                     notEmpty: {
+    //                         message: '请输入用户名'
+    //                     }
+    //                 }
+    //             },
+    //             password: {
+    //                 validators: {
+    //                     notEmpty: {
+    //                         message: '请输入密码'
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     });
+    // });
+    //
+	 // //登录
+	 // function login() {
+    //      $("#login-form").bootstrapValidator('validate');//提交验证
+    //      if ($("#login-form").data('bootstrapValidator').isValid()) {
+    //          //获取验证结果，如果成功，执行下面代码
+		// 	 var data = $("form").serializeArray();
+		// 	 console.log(data);
+		// 	 // $.ajax({
+		// 		//  type : "post",
+		// 		//  data: data,
+		// 		//  url : contextPath+'/login',
+		// 		//  success : function(data) {
+		// 		// 	 if (data.code == 'ok') {
+		// 		// 		 fncTurnToPage("index");
+		// 		// 	 } else {
+		// 		// 		 $("#msg").val(data.msg);
+		// 		// 	 }
+		// 		//  },
+		// 		//  error : function() {
+		// 		// 	 window.toastr.error("系统异常!","",{"positionClass": "toast-top-center"});
+		// 		//  }
+		// 	 // });
+    //      }
+    //  }
+</script>
+##<div>
+##	这是一个登陆页面
+##</div>

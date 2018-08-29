@@ -1,0 +1,75 @@
+#set($contextPath=$request.getContextPath())
+
+<link rel="stylesheet" href="$!contextPath/static/assets/custom/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="$!contextPath/static/assets/custom/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="$!contextPath/static/assets/custom/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="$!contextPath/static/assets/custom/linearicons/style.css">
+<link rel="stylesheet" href="$!contextPath/static/assets/custom/chartist/css/chartist-custom.css">
+
+
+<link rel="stylesheet" href="$!contextPath/static/assets/bootstrap-table/bootstrap-table.css">
+<link rel="stylesheet" href="$!contextPath/static/assets/bootstrap-table/extensions/fixed-columns/bootstrap-table-fixed-columns.css">
+<link rel="stylesheet" href="$!contextPath/static/assets/custom/bootstrap-checkbox/awesome-bootstrap-checkbox.css">
+<link rel="stylesheet" href="$!contextPath/static/assets/custom/bootstrap-checkbox/font-awesome.css">
+<link rel="stylesheet" href="$!contextPath/static/assets/bootstrap-table/extensions/jquery-treegrid/css/jquery.treegrid.css">
+
+##<!--<link rel="stylesheet" href="$!contextPath/static/assets/zTree/css/zTreeStyle/zTreeStyle.css">-->
+<link rel="stylesheet" href="$!contextPath/static/assets/zTree/css/metroStyle/metroStyle.css">
+
+<link rel="stylesheet" href="$!contextPath/static/assets/custom/toastr/toastr.css">
+
+<link rel="stylesheet" href="$!contextPath/static/assets/custom/bootstrapvalidator/css/bootstrapValidator.min.css">
+<!--<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"/>-->
+
+<!-- MAIN CSS -->
+<link rel="stylesheet" href="$!contextPath/static/assets/css/main.css">
+<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+<link rel="stylesheet" href="$!contextPath/static/assets/css/demo.css">
+<link rel="stylesheet" href="$!contextPath/static/assets/css/ssm.css">
+
+
+##<!--<script src="$!contextPath/static/assets/custom/jquery/jquery.min.js"></script>-->
+<script src="$!contextPath/static/assets/custom/jquery/jquery-3.3.1.js"></script>
+##<!--<script src="$!contextPath/static/assets/custom/jquery/jquery-1.11.3.min.js"></script>-->
+
+
+<script src="$!contextPath/static/assets/custom/bootstrap/js/bootstrap.min.js"></script>
+<script src="$!contextPath/static/assets/custom/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="$!contextPath/static/assets/custom/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+<script src="$!contextPath/static/assets/custom/chartist/js/chartist.min.js"></script>
+<script src="$!contextPath/static/assets/scripts/klorofil-common.js"></script>
+
+<script src="$!contextPath/static/assets/bootstrap-table/bootstrap-table.js"></script>
+<script src="$!contextPath/static/assets/bootstrap-table/extensions/toolbar/bootstrap-table-toolbar.js"></script>
+<script src="$!contextPath/static/assets/bootstrap-table/extensions/treegrid/bootstrap-table-treegrid.js"></script>
+<script src="$!contextPath/static/assets/bootstrap-table/extensions/jquery-treegrid/js/jquery.treegrid.js"></script>
+<script src="$!contextPath/static/assets/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="$!contextPath/static/assets/bootstrap-table/extensions/fixed-columns/bootstrap-table-fixed-columns.js"></script>
+<script src="$!contextPath/static/assets/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
+
+<script src="$!contextPath/static/assets/bootstrap-table/extensions/tableExport/tableExport.js"></script>
+<script src="$!contextPath/static/assets/bootstrap-table/extensions/tableExport/libs/pdfmake/pdfmake.min.js"></script>
+<script src="$!contextPath/static/assets/bootstrap-table/extensions/tableExport/libs/pdfmake/vfs_fonts.js"></script>
+<script src="$!contextPath/static/assets/bootstrap-table/extensions/tableExport/libs/FileSaver/FileSaver.min.js"></script>
+<script src="$!contextPath/static/assets/bootstrap-table/extensions/tableExport/libs/jsPDF/jspdf.min.js"></script>
+<script src="$!contextPath/static/assets/bootstrap-table/extensions/tableExport/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+<script src="$!contextPath/static/assets/bootstrap-table/extensions/tableExport/tableExport.js"></script>
+
+<script src="$!contextPath/static/assets/zTree/js/jquery.ztree.all.js"></script>
+
+<script src="$!contextPath/static/assets/custom/toastr/toastr.js"></script>
+
+<script src="$!contextPath/static/assets/custom/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
+<!--<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>-->
+
+
+<script>
+    console.log("2333333333333333333333");
+    console.log("$!contextPath");
+    var contextPath = "$!contextPath";
+</script>
+<script src="$!contextPath/static/js/common.js"></script>
+
+
+
+
