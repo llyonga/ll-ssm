@@ -205,6 +205,12 @@
             <version>${shiro.version}</version>
         </dependency>
 
+        <!-- ehcache缓存框架 -->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache-core</artifactId>
+            <version>2.6.11</version>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>

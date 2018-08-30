@@ -1,10 +1,13 @@
 package com.io.ssm.framework.security.shiro;
 
+import com.io.ssm.framework.utils.Constants;
 import com.io.ssm.module.domain.user.CmUser;
 import com.io.ssm.module.service.user.CmUserService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
@@ -55,7 +58,16 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         LOGGER.info("--------------身份验证方法-------------------");
-        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
+        CaptchaUsernamePasswordToken token = (CaptchaUsernamePasswordToken) authenticationToken;
+        Session session = SecurityUtils.getSubject().getSession();
+        String code = (String) session.getAttribute(Constants.SESSION_CAPTCHA_CODE);
+        String captcha = token.getCaptcha();
+        if (captcha == null) {
+            throw new CaptchaException("验证码不能为空！");
+        }
+        if (!captcha.toUpperCase().equals(code.toUpperCase())) {
+            throw new CaptchaException("验证码错误！");
+        }
         String username = (String) token.getPrincipal();
         CmUser cmUser = cmUserService.selectByUserName(username);
         if (null == cmUser) {

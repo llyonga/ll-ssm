@@ -21,7 +21,13 @@
 								<label for="password" class="control-label sr-only">Password</label>
 								<input type="password" class="form-control" id="password" name="password" placeholder="Password" >
 							</div>
-							<label style="margin-right: 0px;font-size: 20px;" id="msg"></label>
+                            <div class="form-group" >
+                                <input type="text" class="form-control" name="captcha" id="captcha" placeholder="验证码" maxlength="4" style="width: 50%;"/>
+                                <canvas style="width: 50%;height: 34px;" id="myCanvas" onclick="createCode()">
+                                    对不起，您的浏览器不支持canvas，请下载最新版浏览器!
+                                </canvas>
+                            </div>
+                            <small class="help-block" style="color: red;" id="msg"></small>
 							<div class="form-group clearfix">
 								<label class="fancy-checkbox element-left">
 									<input type="checkbox" value="1" name="rememberMe">
@@ -43,8 +49,6 @@
 					</div>
 				</div>
 				#parse("commons/footer.vm")
-##				<div class="clearfix"></div>
-##					#include("templates/commons/footer.vm")
 			</div>
 		</div>
 	</div>
@@ -53,6 +57,9 @@
 
 <script>
     $(function () {
+        //验证码
+        createCode();
+
         $('#login-form').bootstrapValidator({
             message: 'This value is not valid',
             feedbackIcons: {
@@ -74,6 +81,13 @@
                             message: '请输入密码'
                         }
                     }
+                },
+                captcha: {
+                    validators: {
+                        notEmpty: {
+                            message: '请输入验证码'
+                        }
+                    }
                 }
             }
         });
@@ -85,21 +99,44 @@
          if ($("#login-form").data('bootstrapValidator').isValid()) {
              //获取验证结果，如果成功，执行下面代码
 			 var data = $("#login-form").serialize();
-			  $.ajax({
-				  type : "post",
-				  data: data,
-				  url : '$!contextPath/login',
-				  success : function(data) {
+			 $.ajax({
+				 type : "post",
+				 data: data,
+				 url : '$!contextPath/login',
+				 success : function(data) {
 				 	 if (data.code == 'ok') {
-				 		 fncTurnToPage("/index");
+				 	     fncTurnToPage("/index");
 				 	 } else {
-				 		 $("#msg").val(data.msg);
+				 		 $("#msg").text(data.msg);
 				 	 }
-				  },
-				  error : function() {
-				 	 window.toastr.error("系统异常!","",{"positionClass": "toast-top-center"});
-				  }
-			  });
+				 },
+				 error : function() {
+				     window.toastr.error("系统异常!","",{"positionClass": "toast-top-center"});
+				 }
+			   });
          }
      }
+
+     //获取验证码
+    function createCode() {
+        $.ajax({
+            type : "post",
+            url : '$!contextPath/captcha',
+            success : function(data) {
+                if (data) {
+                    var c = document.getElementById("myCanvas");
+                    var ctx = c.getContext("2d");
+                    ctx.clearRect(0, 0, 1000, 1000);
+                    ctx.fillStyle = "black";
+                    ctx.font = "55px 'Microsoft Yahei'";
+                    ctx.fillText(data, 0, 100);
+                } else {
+                    window.toastr.error("获取验证码异常!","",{"positionClass": "toast-top-center"});
+                }
+            },
+            error : function() {
+                window.toastr.error("系统异常!","",{"positionClass": "toast-top-center"});
+            }
+        });
+    }
 </script>

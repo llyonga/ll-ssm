@@ -29,8 +29,8 @@
     <link rel="stylesheet" href="$!contextPath/static/assets/css/ssm.css"/>
 
 ##    <!--<script src="$!contextPath/static/assets/custom/jquery/jquery.min.js"></script>-->
-    <script src="$!contextPath/static/assets/custom/jquery/jquery-3.3.1.js"></script>
-##    <!--<script src="$!contextPath/static/assets/custom/jquery/jquery-1.11.3.min.js"></script>-->
+##    <script src="$!contextPath/static/assets/custom/jquery/jquery-3.3.1.js"></script>
+    <script src="$!contextPath/static/assets/custom/jquery/jquery-1.11.3.min.js"></script>
 
     <script src="$!contextPath/static/assets/custom/bootstrap/js/bootstrap.min.js"></script>
     <script src="$!contextPath/static/assets/custom/jquery-slimscroll/jquery.slimscroll.min.js"></script>

@@ -17,6 +17,9 @@
     <!-- 安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="myShiroRealm"/>
+        <property name="sessionManager" ref="sessionManager"/>
+        <property name="cacheManager" ref="cacheManager"/>
+        <property name="rememberMeManager" ref="rememberMeManager"/>
     </bean>
 
     <!-- Shiro过滤器 核心-->
@@ -36,14 +39,74 @@
                 <!--/** = anon-->
                 /login=anon
                 /static/**=anon
-                /logout = logout
+                /captcha=anon
+                /logout=logout
 
                 <!--authc表示需要认证 没有进行身份认证是不能进行访问的-->
-                /** = authc
+                /**=authc
                 <!--/admin*=authc-->
             </value>
         </property>
     </bean>
+
+    <!--会话管理器Session配置 start-->
+    <!-- sessionManager配置 -->
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="globalSessionTimeout" value="1800000"/><!-- 单位MS-->
+        <property name="deleteInvalidSessions" value="true"/>
+        <!--定期检查失效-->
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+        <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
+        <property name="sessionDAO" ref="sessionDAO"/>
+        <property name="sessionIdCookieEnabled" value="true"/>
+        <property name="sessionIdCookie" ref="sessionIdCookie"/>
+        <property name="sessionListeners" ref="shiroSessionListener"/> <!--session监听器-->
+    </bean>
+    <!-- 会话验证调度器 -->
+    <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
+        <property name="interval"  value="1800000"/><!-- 单位MS-->
+        <property name="sessionManager" ref="sessionManager"/>
+    </bean>
+    <!-- sessionDAO配置 -->
+    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+        <property name="activeSessionsCacheName" value="activeSessionCache"/>
+        <property name="cacheManager" ref="cacheManager"/>
+        <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+    </bean>
+    <!-- 会话ID生成器  -->
+    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+    <!-- 会话Cookie模板 -->
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg name="name"  value="sid" />
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="1800"/><!-- 单位S-->
+    </bean>
+    <!--会话管理器Session配置 end-->
+
+    <!-- 缓存管理器 start -->
+    <!--使用Ehcache实现-->
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:spring/ehcache-shiro.xml"/>
+    </bean>
+    <!-- 缓存管理器 end -->
+
+    <!--RememberMe配置 start-->
+    <!--rememberMe的Cookie模板-->
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg name="name" value="rememberMe"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="25920"/><!-- 3 days -->
+    </bean>
+    <!-- rememberMe管理器  -->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cipherKey"
+                  value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
+        <property name="cookie" ref="rememberMeCookie"/>
+    </bean>
+    <!--RememberMe配置 end-->
+
+    <!--shiro会话session监听-->
+    <bean id="shiroSessionListener" class="com.io.ssm.framework.security.shiro.ShiroSessionListener"/>
 
     <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>

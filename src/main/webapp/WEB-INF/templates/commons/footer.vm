@@ -1,5 +1,5 @@
 <div class="clearfix"></div>
-<footer >
+<footer style="text-align: center;">
     <div class="container-fluid">
         <p class="copyright">&copy; 2018 <a href="#" target="_blank">Link me </a>llyong.cn </p>
     </div>
