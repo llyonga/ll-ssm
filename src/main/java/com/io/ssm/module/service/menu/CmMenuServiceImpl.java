@@ -6,6 +6,7 @@ import com.io.ssm.module.domain.menu.CmMenuExample;
 import com.io.ssm.module.domain.menu.CmMenuMapper;
 import com.io.ssm.framework.common.BaseService;
 import com.io.ssm.framework.common.PageListDto;
+import com.io.ssm.module.domain.menu.MenuTreeMapper;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,8 @@ public class CmMenuServiceImpl implements CmMenuService {
 
     @Autowired
     private CmMenuMapper cmMenuMapper;
+    @Autowired
+    private MenuTreeMapper menuTreeMapper;
 
     @Override
     public long countByExample(CmMenu cmMenu) {
@@ -55,7 +58,10 @@ public class CmMenuServiceImpl implements CmMenuService {
 
     private CmMenuExample getExampleDto(CmMenu cmMenu) {
         CmMenuExample example = new CmMenuExample();
-
+        CmMenuExample.Criteria criteria = example.createCriteria();
+        if (!StringUtils.isEmpty(cmMenu.getMenuId())) {
+            criteria.andMenuIdEqualTo(cmMenu.getMenuId());
+        }
         return example;
     }
 
@@ -85,6 +91,12 @@ public class CmMenuServiceImpl implements CmMenuService {
     public List<CmMenu> selectByExample(CmMenu cmMenu) {
         CmMenuExample example = getExampleDto(cmMenu);
         return cmMenuMapper.selectByExample(example);
+    }
+
+    @Override
+    public List<CmMenu> getMenuTree(CmMenu cmMenu) {
+        CmMenuExample example = getExampleDto(cmMenu);
+        return menuTreeMapper.selectByExample(example);
     }
 
     @Override

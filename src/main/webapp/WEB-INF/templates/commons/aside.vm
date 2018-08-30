@@ -29,6 +29,9 @@
 </div>
 <!-- END LEFT SIDEBAR -->
 <script>
+    //菜单列表html
+    var menus = '';
+
     $(function () {
         $.ajax({
             type : "post",
@@ -51,9 +54,6 @@
             }
         });
     });
-
-    //菜单列表html
-    var menus = '';
 
     //根据菜单主键menuId生成菜单列表html
     //menuId：菜单主键menuId

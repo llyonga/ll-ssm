@@ -1,10 +1,12 @@
 
 $(function() {
     var setting = {
+        callback: {
+            onClick: zTreeOnClick
+        },
         data : {
             key : {
-                name: "menuName",
-                url: "url"
+                name: "menuName"
             },
             simpleData : {
                 enable: true,
@@ -12,18 +14,27 @@ $(function() {
                 pIdKey: "parentId",
                 rootPId: 0
             }
+        },
+        //页面上的显示效果
+        view: {
+            addHoverDom: addHoverDom, //当鼠标移动到节点上时，显示用户自定义控件
+            removeHoverDom: removeHoverDom //离开节点时的操作
+        },
+        edit: {
+            // enable: true, //单独设置为true时，可加载修改、删除图标
+            editNameSelectAll: true
+            // showRemoveBtn: showRemoveBtn,
+            // showRenameBtn: showRenameBtn
         }
     };
     var treeNodes;
     $.ajax({
         type : "post",
-        url : contextPath+'/menu/getList',
+        url : contextPath+'/menu/getMenuTree',
         success : function(data) {
-            // window.toastr.info("获取数据成功！");
-            console.log(data);
             treeNodes = data;
-            $.fn.zTree.init($("#treeDemo"), setting, treeNodes);
-            var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+            $.fn.zTree.init($("#menuTree"), setting, treeNodes);
+            var treeObj = $.fn.zTree.getZTreeObj("menuTree");
             treeObj.expandAll(true);
         },
         error : function() {
@@ -32,64 +43,67 @@ $(function() {
     });
 });
 
+//菜单树点击事件
+function zTreeOnClick(event, treeId, treeNode) {
+    if (!treeNode.menuId) {
+        resetForm("menu-form");
+        $("#parentId").val(treeNode.parentId);
+        return;
+    }
+    $.ajax({
+        type : "post",
+        data: {
+            "menuId" : treeNode.menuId
+        },
+        url : contextPath+'/menu/getMenuOne',
+        success : function(data) {
+            $("#menuId").val(data.menuId);
+            $("#parentId").val(data.parentId);
+            $("#menuName").val(data.menuName);
+            $("#url").val(data.url);
+            $("#level").val(data.level);
+            $("#icon").val(data.icon);
+            $("#mid").val(data.mid);
+        },
+        error : function() {
+            window.toastr.error("请求失败","",{"positionClass": "toast-top-center"});
+        }
+    });
+}
+//鼠标移入显示“+”按钮
+function addHoverDom(treeId, treeNode) {
+    debugger;
+    var sObj = $("#" + treeNode.tId + "_span"); //获取节点信息
+    if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
 
+    var addStr = "<span class='button add' id='addBtn_" + treeNode.tId + "' title='add node' onfocus='this.blur();'></span>"; //定义添加按钮
+    sObj.after(addStr); //加载添加按钮
+    var btn = $("#addBtn_"+treeNode.tId);
 
+    //绑定添加事件，并定义添加操作
+    if (btn) {
+        btn.bind("click", function(){
+            var zTree = $.fn.zTree.getZTreeObj("menuTree");
+            var newNode = zTree.addNodes(treeNode, {menuId:'', parentId:treeNode.menuId, menuName: '新增节点'}); //页面上添加节点
+            zTree.selectNode(newNode); //让新添加的节点处于选中状态
+        });
+    }
+};
+//鼠标移出，移除“+”按钮
+function removeHoverDom(treeId, treeNode) {
+    $("#addBtn_"+treeNode.tId).unbind().remove();
+};
+
+//保存菜单
+function fncAdd() {
+    
+}
 
 
 
 // $(function() {
 //     // initTable();
 //
-//     var setting = {	};
-//
-//     var zNodes =[
-//         { name:"父节点1 - 展开", open:true,
-//             children: [
-//                 { name:"父节点11 - 折叠",
-//                     children: [
-//                         { name:"叶子节点111"},
-//                         { name:"叶子节点112"},
-//                         { name:"叶子节点113"},
-//                         { name:"叶子节点114"}
-//                     ]},
-//                 { name:"父节点12 - 折叠",
-//                     children: [
-//                         { name:"叶子节点121"},
-//                         { name:"叶子节点122"},
-//                         { name:"叶子节点123"},
-//                         { name:"叶子节点124"}
-//                     ]},
-//                 { name:"父节点13 - 没有子节点", isParent:true}
-//             ]},
-//         { name:"父节点2 - 折叠",
-//             children: [
-//                 { name:"父节点21 - 展开", open:true,
-//                     children: [
-//                         { name:"叶子节点211"},
-//                         { name:"叶子节点212"},
-//                         { name:"叶子节点213"},
-//                         { name:"叶子节点214"}
-//                     ]},
-//                 { name:"父节点22 - 折叠",
-//                     children: [
-//                         { name:"叶子节点221"},
-//                         { name:"叶子节点222"},
-//                         { name:"叶子节点223"},
-//                         { name:"叶子节点224"}
-//                     ]},
-//                 { name:"父节点23 - 折叠",
-//                     children: [
-//                         { name:"叶子节点231"},
-//                         { name:"叶子节点232"},
-//                         { name:"叶子节点233"},
-//                         { name:"叶子节点234"}
-//                     ]}
-//             ]},
-//         { name:"父节点3 - 没有子节点", isParent:true}
-//
-//     ];
-//     $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-// });
 //
 // var $tb = $('#table1');
 //

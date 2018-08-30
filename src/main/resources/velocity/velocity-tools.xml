@@ -8,4 +8,8 @@
         <tool key="math" class="org.apache.velocity.tools.generic.MathTool"/>
         <tool key="NumberTool" class="org.apache.velocity.tools.generic.NumberTool"/>
     </toolbox>
+    <toolbox scope="session">
+        <!--用户信息-->
+        <!--<tool key="userInfo" class="com.io.ssm.framework.utils.UserUtil" />-->
+    </toolbox>
 </tools>

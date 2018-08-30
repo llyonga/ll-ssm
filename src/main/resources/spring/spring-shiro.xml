@@ -79,7 +79,7 @@
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <constructor-arg name="name"  value="sid" />
         <property name="httpOnly" value="true"/>
-        <property name="maxAge" value="1800"/><!-- 单位S-->
+        <property name="maxAge" value="1800000"/><!-- 单位MS-->
     </bean>
     <!--会话管理器Session配置 end-->
 
@@ -95,7 +95,7 @@
     <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <constructor-arg name="name" value="rememberMe"/>
         <property name="httpOnly" value="true"/>
-        <property name="maxAge" value="25920"/><!-- 3 days -->
+        <property name="maxAge" value="259200"/><!-- 3 days -->
     </bean>
     <!-- rememberMe管理器  -->
     <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">

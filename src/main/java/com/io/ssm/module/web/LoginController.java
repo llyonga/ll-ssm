@@ -6,6 +6,7 @@ import com.io.ssm.framework.security.shiro.CaptchaException;
 import com.io.ssm.framework.security.shiro.CaptchaUsernamePasswordToken;
 import com.io.ssm.framework.utils.Constants;
 import com.io.ssm.framework.utils.RandomUtils;
+import com.io.ssm.framework.utils.UserUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
@@ -38,7 +39,7 @@ public class LoginController extends BaseController {
     }
 
     @RequestMapping(value = "login",method = RequestMethod.GET)
-    public String turnLogin (Model model) {
+    public String turnLogin () {
         return "login";
     }
 
@@ -49,6 +50,7 @@ public class LoginController extends BaseController {
         CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken(username, password,rememberMe,captcha);
         try {
             subject.login(token);
+            subject.getSession().setAttribute("userInfo",UserUtil.getUser());
             return Result.ok("成功");
         } catch (LockedAccountException e) {
             LOGGER.error("登录失败，该用户已被冻结！",e);
