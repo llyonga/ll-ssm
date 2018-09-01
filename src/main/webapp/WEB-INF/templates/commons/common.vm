@@ -1,7 +1,6 @@
 #set($contextPath=$request.getContextPath())
 
 <link rel="stylesheet" href="$!contextPath/static/assets/custom/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="$!contextPath/static/assets/custom/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="$!contextPath/static/assets/custom/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="$!contextPath/static/assets/custom/linearicons/style.css">
 ##<link rel="stylesheet" href="$!contextPath/static/assets/custom/chartist/css/chartist-custom.css">

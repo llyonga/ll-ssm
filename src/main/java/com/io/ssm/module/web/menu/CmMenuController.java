@@ -31,7 +31,12 @@ public class CmMenuController extends BaseController {
     @ControllerLog(description="跳转到菜单管理页面")
     @RequestMapping(value = "menuList",method = RequestMethod.GET)
     public String menuList() {
-        return "menu/list";
+        try {
+            return "menu/list";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error/404";
+        }
     }
 
     @RequestMapping("getList")

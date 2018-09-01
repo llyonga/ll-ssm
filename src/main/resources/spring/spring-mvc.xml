@@ -113,4 +113,12 @@
      加上这个配置标示强制使用CGlib代理（基于类的代理将起作用，需要cglib库），为false或者默认是使用JDK动态代理-->
     <!--由于在主容器中没有扫描@controller，所以需要在mvc的配置中添加aop的注解-->
     <aop:aspectj-autoproxy ></aop:aspectj-autoproxy>
+
+    <!--配置拦截器-->
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/**"/>  &lt;!&ndash;拦截全局路径&ndash;&gt;-->
+            <!--<bean class="com.io.ssm.framework.interceptors.MonitoringInterceptor"></bean>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 </beans>
