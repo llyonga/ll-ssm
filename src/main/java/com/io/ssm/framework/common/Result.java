@@ -9,8 +9,8 @@ package com.io.ssm.framework.common;
  */
 public class Result {
 
-    private static final String OK = "ok";
-    private static final String NO = "no";
+    public static final String OK = "ok";
+    public static final String NO = "no";
 
     private String code;
     private String msg;

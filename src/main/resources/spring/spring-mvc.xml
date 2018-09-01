@@ -2,7 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <description>spring MVC Configuration</description>
 
@@ -106,4 +107,10 @@
         <!--<property name="maxUploadSize" value="104857600"></property>-->
         <!--<property name="defaultEncoding" value="utf-8"></property>-->
     <!--</bean>-->
+
+    <!--开启aop注解-->
+    <!--proxy-target-class="true"，proxy-target-class属性值决定是基于接口的还是基于类的代理被创。
+     加上这个配置标示强制使用CGlib代理（基于类的代理将起作用，需要cglib库），为false或者默认是使用JDK动态代理-->
+    <!--由于在主容器中没有扫描@controller，所以需要在mvc的配置中添加aop的注解-->
+    <aop:aspectj-autoproxy ></aop:aspectj-autoproxy>
 </beans>

@@ -18,9 +18,8 @@
             <!--<MaxHistory>30</MaxHistory>-->
         <!--</rollingPolicy>-->
     <!--</appender>-->
-    <logger name="org.springframework" level="INFO" />
-    <logger name="org.apache" level="INFO" />
-    <logger name="org.thymeleaf" level="INFO" />
+    <logger name="org.springframework" level="ERROR" />
+    <logger name="org.apache" level="ERROR" />
     <!--mybatis log configure-->
     <logger name="org.mybatis" level="ERROR"/>
     <logger name="com.alibaba" level="ERROR"/>
@@ -29,7 +28,7 @@
     <!--<logger name="java.sql.PreparedStatement" level="DEBUG"/>-->
     <logger name="com.io.ssm" level="INFO"/>
     <!--<logger name="com.io.ssm.module.domain.menu.CmMenuMapper" level="DEBUG"/>-->
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT" />
         <!--<appender-ref ref="FILE" />-->
     </root>

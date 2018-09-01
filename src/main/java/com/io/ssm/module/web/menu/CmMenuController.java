@@ -1,6 +1,8 @@
 package com.io.ssm.module.web.menu;
 
-//import com.io.ssm.framework.annotation.ControllerLog;
+import com.io.ssm.framework.annotations.ControllerLog;
+import com.io.ssm.framework.common.Result;
+import com.io.ssm.framework.utils.JSONUtil;
 import com.io.ssm.module.domain.menu.CmMenu;
 import com.io.ssm.module.service.menu.CmMenuService;
 import com.io.ssm.framework.common.BaseController;
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 /**
- * @description:
+ * @description: 菜单管理请求处理类
  * @author: llyong
  * @date: 2018/8/11
  * @time: 18:48
@@ -26,31 +28,49 @@ public class CmMenuController extends BaseController {
     @Autowired
     private CmMenuService cmMenuService;
 
+    @ControllerLog(description="跳转到菜单管理页面")
     @RequestMapping(value = "menuList",method = RequestMethod.GET)
     public String menuList() {
         return "menu/list";
     }
 
-//    @ControllerLog(description="菜单列表")
     @RequestMapping("getList")
-    public @ResponseBody List<CmMenu> getList(CmMenu cmMenu) {
+    @ResponseBody
+    public List<CmMenu> getList(CmMenu cmMenu) {
         return cmMenuService.selectByExample(cmMenu);
     }
 
+    @ControllerLog(description="获取Tree的数据")
     @RequestMapping("getMenuTree")
-    public @ResponseBody List<CmMenu> getMenuTree(CmMenu cmMenu) {
+    @ResponseBody
+    public List<CmMenu> getMenuTree(CmMenu cmMenu) {
         return cmMenuService.getMenuTree(cmMenu);
     }
 
+    @ControllerLog(description="获取单个菜单的数据")
     @RequestMapping("getMenuOne")
     @ResponseBody
-    public CmMenu getMenuOne(CmMenu cmMenu) {
+    public Result getMenuOne(CmMenu cmMenu) {
         try {
             CmMenu menu = cmMenuService.selectByExample(cmMenu).get(0);
-            return menu;
+            return new Result(Result.OK,menu);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return new Result(Result.NO,"获取数据失败");
+        }
+    }
+
+    @ControllerLog(description = "新增菜单")
+    @RequestMapping("addMenu")
+    @ResponseBody
+    public Result addMenu(String json) {
+        try {
+            CmMenu cmMenu = JSONUtil.toBean(CmMenu.class, json);
+//            cmMenuService.insert(cmMenu);
+            return new Result(Result.OK,"保存成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(Result.NO,"保存失败");
         }
     }
 

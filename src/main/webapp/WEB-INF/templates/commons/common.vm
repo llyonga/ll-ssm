@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="$!contextPath/static/assets/custom/bootstrapvalidator/css/bootstrapValidator.min.css">
 <!--<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"/>-->
 
+<link rel="stylesheet" href="$!contextPath/static/assets/bootstrap-select/css/bootstrap-select.css">
 <!-- MAIN CSS -->
 <link rel="stylesheet" href="$!contextPath/static/assets/css/main.css">
 <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
@@ -63,10 +64,9 @@
 <!--<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>-->
 
 <script src="$!contextPath/static/assets/jquery.serialize-object.js"></script>
+<script src="$!contextPath/static/assets/bootstrap-select/js/bootstrap-select.js"></script>
 
 <script>
-    console.log("2333333333333333333333");
-    console.log("$!contextPath");
     var contextPath = "$!contextPath";
 </script>
 <script src="$!contextPath/static/js/common.js"></script>

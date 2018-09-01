@@ -90,7 +90,7 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!--配置扫描MyRepository注解 -->
         <!--<property name="annotationClass"-->
-                  <!--value="com.io.ssm.framework.persistence.annotation.MyRepository"/>-->
+                  <!--value="com.io.ssm.framework.annotation.MyRepository"/>-->
     </bean>
 
     <!-- 定义事务 -->
@@ -134,5 +134,10 @@
     <!-- 配置ApplicationContext工具类，这样随时随地可以取到 -->
     <bean id="springContextUtil" class="com.io.ssm.framework.utils.SpringContextUtil">
     </bean>
+
+    <!--开启aop注解-->
+    <!--proxy-target-class="true"，proxy-target-class属性值决定是基于接口的还是基于类的代理被创。
+     加上这个配置标示强制使用CGlib代理（基于类的代理将起作用，需要cglib库），为false或者默认是使用JDK动态代理-->
+    <aop:aspectj-autoproxy ></aop:aspectj-autoproxy>
 
 </beans>

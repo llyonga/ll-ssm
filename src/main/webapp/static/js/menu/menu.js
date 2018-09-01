@@ -6,7 +6,8 @@ $(function() {
         },
         data : {
             key : {
-                name: "menuName"
+                name: "menuName",
+                level: "level"
             },
             simpleData : {
                 enable: true,
@@ -41,13 +42,34 @@ $(function() {
             window.toastr.error("请求失败","",{"positionClass": "toast-top-center"});
         }
     });
+
+    //添加校验
+    $("#menu-form").bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            menuName: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入菜单名称'
+                    }
+                }
+            }
+        }
+    });
 });
 
 //菜单树点击事件
 function zTreeOnClick(event, treeId, treeNode) {
+    debugger;
     if (!treeNode.menuId) {
         resetForm("menu-form");
         $("#parentId").val(treeNode.parentId);
+        $("#level").selectpicker('val',treeNode.level);
         return;
     }
     $.ajax({
@@ -56,14 +78,19 @@ function zTreeOnClick(event, treeId, treeNode) {
             "menuId" : treeNode.menuId
         },
         url : contextPath+'/menu/getMenuOne',
-        success : function(data) {
-            $("#menuId").val(data.menuId);
-            $("#parentId").val(data.parentId);
-            $("#menuName").val(data.menuName);
-            $("#url").val(data.url);
-            $("#level").val(data.level);
-            $("#icon").val(data.icon);
-            $("#mid").val(data.mid);
+        success : function(d) {
+            debugger;
+            if (d.code == 'ok') {
+                $("#menuId").val(d.data.menuId);
+                $("#parentId").val(d.data.parentId);
+                $("#menuName").val(d.data.menuName);
+                $("#url").val(d.data.url);
+                $("#level").selectpicker('val',d.data.level);
+                $("#icon").val(d.data.icon);
+                $("#mid").val(d.data.mid);
+            }else {
+                window.toastr.error(d.msg,"",{"positionClass": "toast-top-center"});
+            }
         },
         error : function() {
             window.toastr.error("请求失败","",{"positionClass": "toast-top-center"});
@@ -72,7 +99,6 @@ function zTreeOnClick(event, treeId, treeNode) {
 }
 //鼠标移入显示“+”按钮
 function addHoverDom(treeId, treeNode) {
-    debugger;
     var sObj = $("#" + treeNode.tId + "_span"); //获取节点信息
     if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
 
@@ -96,7 +122,49 @@ function removeHoverDom(treeId, treeNode) {
 
 //保存菜单
 function fncAdd() {
-    
+    if (!$("#parentId").val()) {
+        return;
+    }
+    $("#menu-form").bootstrapValidator('validate');//提交验证
+    if ($("#menu-form").data('bootstrapValidator').isValid()) {
+        var obj = $("#menu-form").serializeObject();
+        $.ajax({
+            type : "post",
+            data: {"json":JSON.stringify(obj)},
+            url : contextPath+'/menu/addMenu',
+            success : function(text) {
+                if (text.code == 'ok') {
+                    window.toastr.success(text.msg,"",{"positionClass": "toast-top-center"});
+                    var zTree = $.fn.zTree.getZTreeObj("menuTree");
+                    var nodes = zTree.getSelectedNodes();
+                    nodes[0].menuId=text.data.menuId;
+                    nodes[0].menuName=text.data.menuName;
+                    nodes[0].parentId=text.data.parentId;
+                    zTree.updateNode(nodes[0]);
+                }else {
+                    window.toastr.error(text.msg,"",{"positionClass": "toast-top-center"});
+                }
+            },
+            error : function() {
+                window.toastr.error("系统异常","",{"positionClass": "toast-top-center"});
+            }
+        });
+    }
+}
+
+
+/**
+ * 刷新当前节点
+ */
+function refreshNode() {
+    /*根据 treeId 获取 zTree 对象*/
+    var zTree = $.fn.zTree.getZTreeObj("menuTree"),
+    type = "refresh",
+    silent = false,
+    /*获取 zTree 当前被选中的节点数据集合*/
+    nodes = zTree.getSelectedNodes();
+    /*强行异步加载父节点的子节点。[setting.async.enable = true 时有效]*/
+    zTree.reAsyncChildNodes(nodes[0], type, silent);
 }
 
 

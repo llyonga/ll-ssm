@@ -67,9 +67,14 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">菜单级别</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control"
-                                           id="level" name="level" placeholder="菜单级别"
-                                           data-toggle="tooltip" data-placement="bottom" title="菜单级别"/>
+                                    <select class="form-control selectpicker" data-live-search="true" readonly="readonly"
+                                            id="level" name="level" placeholder="菜单级别"
+                                            data-toggle="tooltip" data-placement="bottom" title="菜单级别">
+                                        <option value="1">一级菜单</option>
+                                        <option value="2">二级菜单</option>
+                                        <option value="3">三级菜单</option>
+                                    </select>
+
                                 </div>
                                 <label class="col-sm-2 control-label">MID</label>
                                 <div class="col-sm-4">
@@ -111,7 +116,7 @@
                                 <div class="col-sm-8"></div>
                                 <div class="col-sm-4" style="text-align: right;">
                                     <button type="button" class="btn btn-primary btn-label-right"
-                                            onclick="fncAdd()">
+                                            onclick="fncAdd();">
                                         <span><i class="fa fa-floppy-o"></i></span> 保存
                                     </button>
                                     <button type="button" class="btn btn-danger btn-label-right"

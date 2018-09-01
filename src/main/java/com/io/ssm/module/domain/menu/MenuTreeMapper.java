@@ -13,6 +13,6 @@ import java.util.List;
  */
 public interface MenuTreeMapper {
 
-    @Select("SELECT MENU_ID menuId, PARENT_ID parentId, MENU_NAME menuName FROM cm_menu")
+    @Select("SELECT MENU_ID menuId, PARENT_ID parentId, MENU_NAME menuName,LEVEL level FROM cm_menu")
     List<CmMenu> selectByExample(CmMenuExample example);
 }

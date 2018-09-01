@@ -1,6 +1,6 @@
 package com.io.ssm.module.web.user;
 
-//import com.io.ssm.framework.annotation.ControllerLog;
+//import com.io.ssm.framework.annotations.ControllerLog;
 import com.io.ssm.module.domain.user.CmUser;
 import com.io.ssm.framework.common.PageListDto;
 import com.io.ssm.module.service.user.CmUserService;
