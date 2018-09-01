@@ -9,8 +9,8 @@
 				<div class="left">
 					<div class="content">
 						<div class="header">
-							<div class="logo text-center"><img src="$!contextPath/static/assets/img/logo-dark.png" alt="Klorofil Logo"></div>
-							<p class="lead">Login to your account</p>
+##							<div class="logo text-center"><img src="$!contextPath/static/assets/img/logo-dark.png" alt="Klorofil Logo"></div>
+							<p class="lead">Sign in your account</p>
 						</div>
 						<form class="form-auth-small" id="login-form" style="text-align: left;">
 							<div class="form-group">
