@@ -16,6 +16,8 @@ velocity作为模板引擎，页面使用的也是velocity的布局功能
 
 后端：  
 采用主流的Spring+SpringMVC+Mybatis，Druid作为数据库连接池，Shiro为权限校验  
+通过Mybatis的逆向工程来生成实体类和Mapper文件  
+pagehelper作为数据查询的分页  
 采用aop实现系统请求日志记录功能
 
 
@@ -25,3 +27,13 @@ velocity作为模板引擎，页面使用的也是velocity的布局功能
 注意（坑）：由于配置的是Spring和SpringMVC子父类容器关系，所以在开启aop注解配置的时候<aop:aspectj-autoproxy ></aop:aspectj-autoproxy>无效，  
 是因为在主容器中并未扫描@Controller，而是值SpringMVC的容器扫描的，导致将开启aop注解的配置是配在了spring的主配置文件中，从而aop注解失效的情况，  
 改为在SpringMVC的配置文件中开启即可。
+
+
+
+
+
+
+
+
+
+未完待续。。。。。。。。。。。
