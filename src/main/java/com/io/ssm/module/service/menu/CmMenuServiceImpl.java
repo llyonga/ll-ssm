@@ -1,5 +1,6 @@
 package com.io.ssm.module.service.menu;
 
+import com.io.ssm.framework.annotations.DataSource;
 import com.io.ssm.framework.utils.StringUtils;
 import com.io.ssm.module.domain.menu.CmMenu;
 import com.io.ssm.module.domain.menu.CmMenuExample;
@@ -93,6 +94,7 @@ public class CmMenuServiceImpl implements CmMenuService {
         return cmMenuMapper.selectByExample(example);
     }
 
+    @DataSource(DataSource.SLAVE)
     @Override
     public List<CmMenu> getMenuTree(CmMenu cmMenu) {
         CmMenuExample example = getExampleDto(cmMenu);
