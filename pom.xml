@@ -26,6 +26,10 @@
         <jackson.version>2.9.5</jackson.version>
         <pagehelper.version>5.1.4</pagehelper.version>
         <fastjson.version>1.2.47</fastjson.version>
+        <ehcache.version>2.6.11</ehcache.version>
+        <!--2.x版本已上要求是jdk 8、spring 5.x-->
+        <spring-data-redis.version>1.8.14.RELEASE</spring-data-redis.version>
+        <jedis.version>2.9.0</jedis.version>
     </properties>
 
     <dependencies>
@@ -188,11 +192,24 @@
             <version>${shiro.version}</version>
         </dependency>
 
+        <!--redis-->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+        </dependency>
+        <!--2.x版本已上要求是jdk 8、spring 5.x-->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>${spring-data-redis.version}</version>
+        </dependency>
+
         <!-- ehcache缓存框架 -->
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache-core</artifactId>
-            <version>2.6.11</version>
+            <version>${ehcache.version}</version>
         </dependency>
 
         <dependency>
@@ -205,6 +222,20 @@
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency>
+
+        <!--sftp-->
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.54</version>
+        </dependency>
+        <!--ftp-->
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>3.6</version>
+        </dependency>
+
 
     </dependencies>
 
