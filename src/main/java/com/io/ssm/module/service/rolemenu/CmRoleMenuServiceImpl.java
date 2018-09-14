@@ -1,6 +1,7 @@
 package com.io.ssm.module.service.rolemenu;
 
 import com.io.ssm.module.domain.rolemenu.CmRoleMenu;
+import com.io.ssm.module.domain.rolemenu.CmRoleMenuExtMapper;
 import com.io.ssm.module.domain.rolemenu.CmRoleMenuMapper;
 import com.io.ssm.framework.common.BaseService;
 import com.io.ssm.framework.common.PageListDto;
@@ -24,6 +25,9 @@ public class CmRoleMenuServiceImpl implements CmRoleMenuService {
 
     @Autowired
     private CmRoleMenuMapper cmRoleMenuMapper;
+
+    @Autowired
+    private CmRoleMenuExtMapper cmRoleMenuExtMapper;
 
     @Override
     public long countByExample(CmRoleMenu cmRoleMenu) {
@@ -61,7 +65,7 @@ public class CmRoleMenuServiceImpl implements CmRoleMenuService {
     }
 
     public List<CmRoleMenu> findAllMenu(String username) {
-        return cmRoleMenuMapper.findAllMenu(username);
+        return cmRoleMenuExtMapper.findAllMenu(username);
     }
 
     @Override

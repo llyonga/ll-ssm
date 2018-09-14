@@ -1,50 +1,78 @@
 package com.io.ssm.framework.common;
 
 /**
- * @description:
+ * @description: 公共返回类
  * @author: llyong
  * @date: 2018/8/18
  * @time: 18:00
  * @version: 1.0
  */
-public class Result {
+public class Result<T> {
 
-    public static final String OK = "ok";
-    public static final String NO = "no";
-
-    private String code;
+    private Integer code;
     private String msg;
-    private Object data;
+    private T data;
 
-    public static Result ok(String msg) {
-        return new Result(Result.OK,msg);
+    public static Result success(String msg) {
+        return new Result(true,msg);
     }
 
-    public static Result error(String msg) {
-        return new Result(Result.NO,msg);
+    public static Result fail(String msg) {
+        return new Result(false,msg);
     }
 
-    public Result(String code, Object data) {
-        this.code = code;
-        this.data = data;
-    }
-
-    public Result(String code, String msg) {
-        this.code = code;
-        this.msg = msg;
-    }
-
-    public Result(String code, String msg, Object data) {
-        this.code = code;
+    public Result(boolean rs, String msg, T data) {
+        if (rs) {
+            this.code = 1;
+        } else {
+            this.code = 0;
+        }
         this.msg = msg;
         this.data = data;
     }
 
-    public String getCode() {
+    public Result(boolean rs, String msg) {
+        if (rs) {
+            this.code = 1;
+        } else {
+            this.code = 0;
+        }
+        this.msg = msg;
+        this.data = null;
+    }
+
+    public Result(boolean rs, T data) {
+        if (rs) {
+            this.code = 1;
+        } else {
+            this.code = 0;
+        }
+        this.msg = null;
+        this.data = data;
+    }
+
+
+    public Result(Integer code, T data) {
+        this.code = code;
+        this.data = data;
+    }
+
+    public Result(Integer code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+
+    public Result(Integer code, String msg, T data) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+    }
+
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
@@ -56,11 +84,11 @@ public class Result {
         this.msg = msg;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 }

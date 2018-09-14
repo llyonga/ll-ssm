@@ -51,22 +51,22 @@ public class LoginController extends BaseController {
         try {
             subject.login(token);
             subject.getSession().setAttribute("userInfo",UserUtil.getUser());
-            return Result.ok("成功");
+            return Result.success("成功");
         } catch (LockedAccountException e) {
             LOGGER.error("登录失败，该用户已被冻结！",e);
-            return Result.error("登录失败，该用户已被冻结！");
+            return Result.fail("登录失败，该用户已被冻结！");
         } catch (AccountException e) {
             LOGGER.error("登录失败",e);
-            return Result.error("用户或者密码错误！");
+            return Result.fail("用户或者密码错误！");
         } catch (CaptchaException e) {
             LOGGER.error("验证码异常",e);
-            return Result.error("验证码错误！");
+            return Result.fail("验证码错误！");
         }   catch (AuthenticationException e) {
             LOGGER.error("该用户不存在！",e);
-            return Result.error("该用户不存在！");
+            return Result.fail("该用户不存在！");
         } catch (Exception e) {
             LOGGER.error("系统异常",e);
-            return Result.error("系统异常！");
+            return Result.fail("系统异常！");
         }
     }
 

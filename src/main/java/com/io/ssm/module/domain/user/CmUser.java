@@ -4,42 +4,54 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class CmUser implements Serializable {
-    private Long userId;
+    private Long id;
+
+    private String userId;
 
     private String username;
 
     private String password;
 
-    private Long deptId;
+    private String deptId;
 
     private String email;
 
     private String mobile;
 
+    private String sex;
+
     private String status;
-
-    private Date crateTime;
-
-    private Date modifyTime;
 
     private Date lastLoginTime;
 
-    private String ssex;
+    private String remark;
 
-    private String theme;
+    private String picture;
 
-    private String avatar;
+    private Date createTime;
 
-    private String description;
+    private String creater;
+
+    private Date modifyTime;
+
+    private String modifier;
 
     private static final long serialVersionUID = 1L;
 
-    public Long getUserId() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 
     public String getUsername() {
@@ -58,12 +70,12 @@ public class CmUser implements Serializable {
         this.password = password == null ? null : password.trim();
     }
 
-    public Long getDeptId() {
+    public String getDeptId() {
         return deptId;
     }
 
-    public void setDeptId(Long deptId) {
-        this.deptId = deptId;
+    public void setDeptId(String deptId) {
+        this.deptId = deptId == null ? null : deptId.trim();
     }
 
     public String getEmail() {
@@ -82,28 +94,20 @@ public class CmUser implements Serializable {
         this.mobile = mobile == null ? null : mobile.trim();
     }
 
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex == null ? null : sex.trim();
+    }
+
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
-    }
-
-    public Date getCrateTime() {
-        return crateTime;
-    }
-
-    public void setCrateTime(Date crateTime) {
-        this.crateTime = crateTime;
-    }
-
-    public Date getModifyTime() {
-        return modifyTime;
-    }
-
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
     }
 
     public Date getLastLoginTime() {
@@ -114,36 +118,52 @@ public class CmUser implements Serializable {
         this.lastLoginTime = lastLoginTime;
     }
 
-    public String getSsex() {
-        return ssex;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setSsex(String ssex) {
-        this.ssex = ssex == null ? null : ssex.trim();
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 
-    public String getTheme() {
-        return theme;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setTheme(String theme) {
-        this.theme = theme == null ? null : theme.trim();
+    public void setPicture(String picture) {
+        this.picture = picture == null ? null : picture.trim();
     }
 
-    public String getAvatar() {
-        return avatar;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar == null ? null : avatar.trim();
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public String getDescription() {
-        return description;
+    public String getCreater() {
+        return creater;
     }
 
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
+    public void setCreater(String creater) {
+        this.creater = creater == null ? null : creater.trim();
+    }
+
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
+    }
+
+    public String getModifier() {
+        return modifier;
+    }
+
+    public void setModifier(String modifier) {
+        this.modifier = modifier == null ? null : modifier.trim();
     }
 
     @Override
@@ -152,20 +172,22 @@ public class CmUser implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", userId=").append(userId);
         sb.append(", username=").append(username);
         sb.append(", password=").append(password);
         sb.append(", deptId=").append(deptId);
         sb.append(", email=").append(email);
         sb.append(", mobile=").append(mobile);
+        sb.append(", sex=").append(sex);
         sb.append(", status=").append(status);
-        sb.append(", crateTime=").append(crateTime);
-        sb.append(", modifyTime=").append(modifyTime);
         sb.append(", lastLoginTime=").append(lastLoginTime);
-        sb.append(", ssex=").append(ssex);
-        sb.append(", theme=").append(theme);
-        sb.append(", avatar=").append(avatar);
-        sb.append(", description=").append(description);
+        sb.append(", remark=").append(remark);
+        sb.append(", picture=").append(picture);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", creater=").append(creater);
+        sb.append(", modifyTime=").append(modifyTime);
+        sb.append(", modifier=").append(modifier);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

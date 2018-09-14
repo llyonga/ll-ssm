@@ -36,6 +36,7 @@
                     <!--</div>-->
                     <div class="panel-body" style="padding-top: 20px;">
                         <form class="form-horizontal" role="form" style="height:400px;overflow-y: auto; overflow-x: hidden; " id="menu-form">
+                            <input type="hidden" id="id" name="id"/>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">菜单名称</label>
                                 <div class="col-sm-4">

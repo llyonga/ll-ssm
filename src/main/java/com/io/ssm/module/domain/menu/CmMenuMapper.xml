@@ -2,20 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.io.ssm.module.domain.menu.CmMenuMapper">
   <resultMap id="BaseResultMap" type="com.io.ssm.module.domain.menu.CmMenu">
-    <id column="MENU_ID" jdbcType="BIGINT" property="menuId" />
-    <result column="PARENT_ID" jdbcType="BIGINT" property="parentId" />
-    <result column="MENU_NAME" jdbcType="VARCHAR" property="menuName" />
-    <result column="URL" jdbcType="VARCHAR" property="url" />
-    <result column="LEVEL" jdbcType="INTEGER" property="level" />
-    <result column="ICON" jdbcType="VARCHAR" property="icon" />
-    <result column="TYPE" jdbcType="CHAR" property="type" />
-    <result column="MID" jdbcType="INTEGER" property="mid" />
-    <result column="ORDER_NUM" jdbcType="BIGINT" property="orderNum" />
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.io.ssm.module.domain.menu.CmMenu">
-    <result column="PERMS" jdbcType="LONGVARCHAR" property="perms" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="menu_id" jdbcType="VARCHAR" property="menuId" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="mid" jdbcType="INTEGER" property="mid" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -76,29 +75,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    MENU_ID, PARENT_ID, MENU_NAME, URL, LEVEL, ICON, TYPE, MID, ORDER_NUM, CREATE_TIME, 
-    MODIFY_TIME
+    id, menu_id, menu_name, parent_id, url, level, icon, mid, seq, creater, create_time, 
+    modifier, modify_time
   </sql>
-  <sql id="Blob_Column_List">
-    PERMS
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.io.ssm.module.domain.menu.CmMenuExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from cm_menu
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="com.io.ssm.module.domain.menu.CmMenuExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -114,17 +93,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from cm_menu
-    where MENU_ID = #{menuId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from cm_menu
-    where MENU_ID = #{menuId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.io.ssm.module.domain.menu.CmMenuExample">
     delete from cm_menu
@@ -133,64 +110,72 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.io.ssm.module.domain.menu.CmMenu">
-    insert into cm_menu (MENU_ID, PARENT_ID, MENU_NAME, 
-      URL, LEVEL, ICON, TYPE, 
-      MID, ORDER_NUM, CREATE_TIME, 
-      MODIFY_TIME, PERMS)
-    values (#{menuId,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{menuName,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, #{type,jdbcType=CHAR}, 
-      #{mid,jdbcType=INTEGER}, #{orderNum,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{modifyTime,jdbcType=TIMESTAMP}, #{perms,jdbcType=LONGVARCHAR})
+    insert into cm_menu (id, menu_id, menu_name, 
+      parent_id, url, level, 
+      icon, mid, seq, creater, 
+      create_time, modifier, modify_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{menuId,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, 
+      #{icon,jdbcType=VARCHAR}, #{mid,jdbcType=INTEGER}, #{seq,jdbcType=INTEGER}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.io.ssm.module.domain.menu.CmMenu">
     insert into cm_menu
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="menuId != null">
-        MENU_ID,
+      <if test="id != null">
+        id,
       </if>
-      <if test="parentId != null">
-        PARENT_ID,
+      <if test="menuId != null">
+        menu_id,
       </if>
       <if test="menuName != null">
-        MENU_NAME,
+        menu_name,
+      </if>
+      <if test="parentId != null">
+        parent_id,
       </if>
       <if test="url != null">
-        URL,
+        url,
       </if>
       <if test="level != null">
-        LEVEL,
+        level,
       </if>
       <if test="icon != null">
-        ICON,
-      </if>
-      <if test="type != null">
-        TYPE,
+        icon,
       </if>
       <if test="mid != null">
-        MID,
+        mid,
       </if>
-      <if test="orderNum != null">
-        ORDER_NUM,
+      <if test="seq != null">
+        seq,
+      </if>
+      <if test="creater != null">
+        creater,
       </if>
       <if test="createTime != null">
-        CREATE_TIME,
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
       </if>
       <if test="modifyTime != null">
-        MODIFY_TIME,
-      </if>
-      <if test="perms != null">
-        PERMS,
+        modify_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="menuId != null">
-        #{menuId,jdbcType=BIGINT},
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
       </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=BIGINT},
+      <if test="menuId != null">
+        #{menuId,jdbcType=VARCHAR},
       </if>
       <if test="menuName != null">
         #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
       </if>
       <if test="url != null">
         #{url,jdbcType=VARCHAR},
@@ -201,23 +186,23 @@
       <if test="icon != null">
         #{icon,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=CHAR},
-      </if>
       <if test="mid != null">
         #{mid,jdbcType=INTEGER},
       </if>
-      <if test="orderNum != null">
-        #{orderNum,jdbcType=BIGINT},
+      <if test="seq != null">
+        #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
       <if test="modifyTime != null">
         #{modifyTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="perms != null">
-        #{perms,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -230,78 +215,65 @@
   <update id="updateByExampleSelective" parameterType="map">
     update cm_menu
     <set>
-      <if test="record.menuId != null">
-        MENU_ID = #{record.menuId,jdbcType=BIGINT},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.parentId != null">
-        PARENT_ID = #{record.parentId,jdbcType=BIGINT},
+      <if test="record.menuId != null">
+        menu_id = #{record.menuId,jdbcType=VARCHAR},
       </if>
       <if test="record.menuName != null">
-        MENU_NAME = #{record.menuName,jdbcType=VARCHAR},
+        menu_name = #{record.menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=VARCHAR},
       </if>
       <if test="record.url != null">
-        URL = #{record.url,jdbcType=VARCHAR},
+        url = #{record.url,jdbcType=VARCHAR},
       </if>
       <if test="record.level != null">
-        LEVEL = #{record.level,jdbcType=INTEGER},
+        level = #{record.level,jdbcType=INTEGER},
       </if>
       <if test="record.icon != null">
-        ICON = #{record.icon,jdbcType=VARCHAR},
-      </if>
-      <if test="record.type != null">
-        TYPE = #{record.type,jdbcType=CHAR},
+        icon = #{record.icon,jdbcType=VARCHAR},
       </if>
       <if test="record.mid != null">
-        MID = #{record.mid,jdbcType=INTEGER},
+        mid = #{record.mid,jdbcType=INTEGER},
       </if>
-      <if test="record.orderNum != null">
-        ORDER_NUM = #{record.orderNum,jdbcType=BIGINT},
+      <if test="record.seq != null">
+        seq = #{record.seq,jdbcType=INTEGER},
+      </if>
+      <if test="record.creater != null">
+        creater = #{record.creater,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
-        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifier != null">
+        modifier = #{record.modifier,jdbcType=VARCHAR},
       </if>
       <if test="record.modifyTime != null">
-        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.perms != null">
-        PERMS = #{record.perms,jdbcType=LONGVARCHAR},
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update cm_menu
-    set MENU_ID = #{record.menuId,jdbcType=BIGINT},
-      PARENT_ID = #{record.parentId,jdbcType=BIGINT},
-      MENU_NAME = #{record.menuName,jdbcType=VARCHAR},
-      URL = #{record.url,jdbcType=VARCHAR},
-      LEVEL = #{record.level,jdbcType=INTEGER},
-      ICON = #{record.icon,jdbcType=VARCHAR},
-      TYPE = #{record.type,jdbcType=CHAR},
-      MID = #{record.mid,jdbcType=INTEGER},
-      ORDER_NUM = #{record.orderNum,jdbcType=BIGINT},
-      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
-      MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
-      PERMS = #{record.perms,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
   <update id="updateByExample" parameterType="map">
     update cm_menu
-    set MENU_ID = #{record.menuId,jdbcType=BIGINT},
-      PARENT_ID = #{record.parentId,jdbcType=BIGINT},
-      MENU_NAME = #{record.menuName,jdbcType=VARCHAR},
-      URL = #{record.url,jdbcType=VARCHAR},
-      LEVEL = #{record.level,jdbcType=INTEGER},
-      ICON = #{record.icon,jdbcType=VARCHAR},
-      TYPE = #{record.type,jdbcType=CHAR},
-      MID = #{record.mid,jdbcType=INTEGER},
-      ORDER_NUM = #{record.orderNum,jdbcType=BIGINT},
-      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
-      MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP}
+    set id = #{record.id,jdbcType=BIGINT},
+      menu_id = #{record.menuId,jdbcType=VARCHAR},
+      menu_name = #{record.menuName,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=INTEGER},
+      icon = #{record.icon,jdbcType=VARCHAR},
+      mid = #{record.mid,jdbcType=INTEGER},
+      seq = #{record.seq,jdbcType=INTEGER},
+      creater = #{record.creater,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modifier = #{record.modifier,jdbcType=VARCHAR},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -309,88 +281,61 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.io.ssm.module.domain.menu.CmMenu">
     update cm_menu
     <set>
-      <if test="parentId != null">
-        PARENT_ID = #{parentId,jdbcType=BIGINT},
+      <if test="menuId != null">
+        menu_id = #{menuId,jdbcType=VARCHAR},
       </if>
       <if test="menuName != null">
-        MENU_NAME = #{menuName,jdbcType=VARCHAR},
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
       </if>
       <if test="url != null">
-        URL = #{url,jdbcType=VARCHAR},
+        url = #{url,jdbcType=VARCHAR},
       </if>
       <if test="level != null">
-        LEVEL = #{level,jdbcType=INTEGER},
+        level = #{level,jdbcType=INTEGER},
       </if>
       <if test="icon != null">
-        ICON = #{icon,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        TYPE = #{type,jdbcType=CHAR},
+        icon = #{icon,jdbcType=VARCHAR},
       </if>
       <if test="mid != null">
-        MID = #{mid,jdbcType=INTEGER},
+        mid = #{mid,jdbcType=INTEGER},
       </if>
-      <if test="orderNum != null">
-        ORDER_NUM = #{orderNum,jdbcType=BIGINT},
+      <if test="seq != null">
+        seq = #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=VARCHAR},
       </if>
       <if test="modifyTime != null">
-        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="perms != null">
-        PERMS = #{perms,jdbcType=LONGVARCHAR},
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where MENU_ID = #{menuId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.io.ssm.module.domain.menu.CmMenu">
-    update cm_menu
-    set PARENT_ID = #{parentId,jdbcType=BIGINT},
-      MENU_NAME = #{menuName,jdbcType=VARCHAR},
-      URL = #{url,jdbcType=VARCHAR},
-      LEVEL = #{level,jdbcType=INTEGER},
-      ICON = #{icon,jdbcType=VARCHAR},
-      TYPE = #{type,jdbcType=CHAR},
-      MID = #{mid,jdbcType=INTEGER},
-      ORDER_NUM = #{orderNum,jdbcType=BIGINT},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
-      PERMS = #{perms,jdbcType=LONGVARCHAR}
-    where MENU_ID = #{menuId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.io.ssm.module.domain.menu.CmMenu">
     update cm_menu
-    set PARENT_ID = #{parentId,jdbcType=BIGINT},
-      MENU_NAME = #{menuName,jdbcType=VARCHAR},
-      URL = #{url,jdbcType=VARCHAR},
-      LEVEL = #{level,jdbcType=INTEGER},
-      ICON = #{icon,jdbcType=VARCHAR},
-      TYPE = #{type,jdbcType=CHAR},
-      MID = #{mid,jdbcType=INTEGER},
-      ORDER_NUM = #{orderNum,jdbcType=BIGINT},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
-    where MENU_ID = #{menuId,jdbcType=BIGINT}
+    set menu_id = #{menuId,jdbcType=VARCHAR},
+      menu_name = #{menuName,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=VARCHAR},
+      mid = #{mid,jdbcType=INTEGER},
+      seq = #{seq,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByExampleWithBLOBsWithRowbounds" parameterType="com.io.ssm.module.domain.menu.CmMenuExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from cm_menu
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExampleWithRowbounds" parameterType="com.io.ssm.module.domain.menu.CmMenuExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

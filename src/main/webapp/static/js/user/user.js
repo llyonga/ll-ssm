@@ -22,6 +22,12 @@ function initTable() {
                 return index + 1;
             }
         }, {
+            field: 'id',
+            title: 'ID',
+            align: 'center',
+            valign: 'middle',
+            visible: false
+        }, {
             field: 'userId',
             title: '用户ID',
             align: 'center',
@@ -34,11 +40,19 @@ function initTable() {
             valign: 'middle',
             sortable: true
         }, {
-            field: 'password',
-            title: '密码',
+            field: 'sex',
+            title: '性别',
             align: 'center',
             valign: 'middle',
-            sortable: true
+            sortable: true,
+            // 格式化状态
+            formatter: function statusFormatter(value, row, index) {
+                if (value === 1) {
+                    return '女';
+                } else {
+                    return '男';
+                }
+            }
         }, {
             field: 'deptId',
             title: '部门ID',
@@ -71,6 +85,18 @@ function initTable() {
                     return '<span class="label label-default">锁定</span>';
                 }
             }
+        },  {
+            field: 'picture',
+            title: '作者',
+            align: 'center',
+            valign: 'middle',
+            sortable: true,
+            formatter: function(value,row,index){
+                if (value) {
+                    var u = contextPath + "/static/assets/img/"+value;
+                    return '<img  src="'+u+'"  class="img-circle">';
+                }
+            }
         }, {
             field: 'crateTime',
             title: '创建时间',
@@ -92,30 +118,8 @@ function initTable() {
                 return timestampDateFormat(value);
             }
         }, {
-            field: 'ssex',
-            title: '性别',
-            align: 'center',
-            valign: 'middle',
-            sortable: true
-        },{
-            field: 'theme',
-            title: '主题',
-            align: 'center',
-            valign: 'middle',
-            sortable: true
-        }, {
-            field: 'avatar',
-            title: '作者',
-            align: 'center',
-            valign: 'middle',
-            sortable: true,
-            formatter: function(value,row,index){
-                var u = contextPath + "/static/assets/img/"+value;
-                return '<img  src="'+u+'"  class="img-circle">';
-            }
-        }, {
-            field: 'description',
-            title: '描述',
+            field: 'remark',
+            title: '备注',
             align: 'center',
             valign: 'middle',
             sortable: true
@@ -140,6 +144,11 @@ $(document).on('click',"#btn_rest",function () {
 $(document).on('click',"#btn_edit",function () {
     var row = $("#table1").bootstrapTable('getSelections');
     console.log(row);
+});
+
+//新增
+$(document).on('click',"#btn_add",function () {
+
 });
 
 

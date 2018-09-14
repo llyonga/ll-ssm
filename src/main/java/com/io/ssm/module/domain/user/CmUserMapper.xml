@@ -2,20 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.io.ssm.module.domain.user.CmUserMapper">
   <resultMap id="BaseResultMap" type="com.io.ssm.module.domain.user.CmUser">
-    <id column="USER_ID" jdbcType="BIGINT" property="userId" />
-    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
-    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
-    <result column="DEPT_ID" jdbcType="BIGINT" property="deptId" />
-    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
-    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
-    <result column="STATUS" jdbcType="CHAR" property="status" />
-    <result column="CRATE_TIME" jdbcType="TIMESTAMP" property="crateTime" />
-    <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
-    <result column="LAST_LOGIN_TIME" jdbcType="TIMESTAMP" property="lastLoginTime" />
-    <result column="SSEX" jdbcType="CHAR" property="ssex" />
-    <result column="THEME" jdbcType="VARCHAR" property="theme" />
-    <result column="AVATAR" jdbcType="VARCHAR" property="avatar" />
-    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -76,8 +78,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    USER_ID, USERNAME, PASSWORD, DEPT_ID, EMAIL, MOBILE, STATUS, CRATE_TIME, MODIFY_TIME, 
-    LAST_LOGIN_TIME, SSEX, THEME, AVATAR, DESCRIPTION
+    id, user_id, username, password, dept_id, email, mobile, sex, status, last_login_time, 
+    remark, picture, create_time, creater, modify_time, modifier
   </sql>
   <select id="selectByExample" parameterType="com.io.ssm.module.domain.user.CmUserExample" resultMap="BaseResultMap">
     select
@@ -98,11 +100,11 @@
     select 
     <include refid="Base_Column_List" />
     from cm_user
-    where USER_ID = #{userId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from cm_user
-    where USER_ID = #{userId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.io.ssm.module.domain.user.CmUserExample">
     delete from cm_user
@@ -111,66 +113,77 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.io.ssm.module.domain.user.CmUser">
-    insert into cm_user (USER_ID, USERNAME, PASSWORD, 
-      DEPT_ID, EMAIL, MOBILE, 
-      STATUS, CRATE_TIME, MODIFY_TIME, 
-      LAST_LOGIN_TIME, SSEX, THEME, 
-      AVATAR, DESCRIPTION)
-    values (#{userId,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{deptId,jdbcType=BIGINT}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
-      #{status,jdbcType=CHAR}, #{crateTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
-      #{lastLoginTime,jdbcType=TIMESTAMP}, #{ssex,jdbcType=CHAR}, #{theme,jdbcType=VARCHAR}, 
-      #{avatar,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
+    insert into cm_user (id, user_id, username, 
+      password, dept_id, email, 
+      mobile, sex, status, last_login_time, 
+      remark, picture, create_time, 
+      creater, modify_time, modifier
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{deptId,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{creater,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.io.ssm.module.domain.user.CmUser">
     insert into cm_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="userId != null">
-        USER_ID,
+        user_id,
       </if>
       <if test="username != null">
-        USERNAME,
+        username,
       </if>
       <if test="password != null">
-        PASSWORD,
+        password,
       </if>
       <if test="deptId != null">
-        DEPT_ID,
+        dept_id,
       </if>
       <if test="email != null">
-        EMAIL,
+        email,
       </if>
       <if test="mobile != null">
-        MOBILE,
+        mobile,
+      </if>
+      <if test="sex != null">
+        sex,
       </if>
       <if test="status != null">
-        STATUS,
-      </if>
-      <if test="crateTime != null">
-        CRATE_TIME,
-      </if>
-      <if test="modifyTime != null">
-        MODIFY_TIME,
+        status,
       </if>
       <if test="lastLoginTime != null">
-        LAST_LOGIN_TIME,
+        last_login_time,
       </if>
-      <if test="ssex != null">
-        SSEX,
+      <if test="remark != null">
+        remark,
       </if>
-      <if test="theme != null">
-        THEME,
+      <if test="picture != null">
+        picture,
       </if>
-      <if test="avatar != null">
-        AVATAR,
+      <if test="createTime != null">
+        create_time,
       </if>
-      <if test="description != null">
-        DESCRIPTION,
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
       <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
+        #{userId,jdbcType=VARCHAR},
       </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
@@ -179,7 +192,7 @@
         #{password,jdbcType=VARCHAR},
       </if>
       <if test="deptId != null">
-        #{deptId,jdbcType=BIGINT},
+        #{deptId,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
@@ -187,29 +200,32 @@
       <if test="mobile != null">
         #{mobile,jdbcType=VARCHAR},
       </if>
+      <if test="sex != null">
+        #{sex,jdbcType=CHAR},
+      </if>
       <if test="status != null">
         #{status,jdbcType=CHAR},
-      </if>
-      <if test="crateTime != null">
-        #{crateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifyTime != null">
-        #{modifyTime,jdbcType=TIMESTAMP},
       </if>
       <if test="lastLoginTime != null">
         #{lastLoginTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="ssex != null">
-        #{ssex,jdbcType=CHAR},
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="theme != null">
-        #{theme,jdbcType=VARCHAR},
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
       </if>
-      <if test="avatar != null">
-        #{avatar,jdbcType=VARCHAR},
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="description != null">
-        #{description,jdbcType=VARCHAR},
+      <if test="creater != null">
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -222,47 +238,53 @@
   <update id="updateByExampleSelective" parameterType="map">
     update cm_user
     <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
       <if test="record.userId != null">
-        USER_ID = #{record.userId,jdbcType=BIGINT},
+        user_id = #{record.userId,jdbcType=VARCHAR},
       </if>
       <if test="record.username != null">
-        USERNAME = #{record.username,jdbcType=VARCHAR},
+        username = #{record.username,jdbcType=VARCHAR},
       </if>
       <if test="record.password != null">
-        PASSWORD = #{record.password,jdbcType=VARCHAR},
+        password = #{record.password,jdbcType=VARCHAR},
       </if>
       <if test="record.deptId != null">
-        DEPT_ID = #{record.deptId,jdbcType=BIGINT},
+        dept_id = #{record.deptId,jdbcType=VARCHAR},
       </if>
       <if test="record.email != null">
-        EMAIL = #{record.email,jdbcType=VARCHAR},
+        email = #{record.email,jdbcType=VARCHAR},
       </if>
       <if test="record.mobile != null">
-        MOBILE = #{record.mobile,jdbcType=VARCHAR},
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=CHAR},
       </if>
       <if test="record.status != null">
-        STATUS = #{record.status,jdbcType=CHAR},
-      </if>
-      <if test="record.crateTime != null">
-        CRATE_TIME = #{record.crateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.modifyTime != null">
-        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+        status = #{record.status,jdbcType=CHAR},
       </if>
       <if test="record.lastLoginTime != null">
-        LAST_LOGIN_TIME = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+        last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.ssex != null">
-        SSEX = #{record.ssex,jdbcType=CHAR},
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
       </if>
-      <if test="record.theme != null">
-        THEME = #{record.theme,jdbcType=VARCHAR},
+      <if test="record.picture != null">
+        picture = #{record.picture,jdbcType=VARCHAR},
       </if>
-      <if test="record.avatar != null">
-        AVATAR = #{record.avatar,jdbcType=VARCHAR},
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.description != null">
-        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      <if test="record.creater != null">
+        creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifyTime != null">
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifier != null">
+        modifier = #{record.modifier,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -271,20 +293,22 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update cm_user
-    set USER_ID = #{record.userId,jdbcType=BIGINT},
-      USERNAME = #{record.username,jdbcType=VARCHAR},
-      PASSWORD = #{record.password,jdbcType=VARCHAR},
-      DEPT_ID = #{record.deptId,jdbcType=BIGINT},
-      EMAIL = #{record.email,jdbcType=VARCHAR},
-      MOBILE = #{record.mobile,jdbcType=VARCHAR},
-      STATUS = #{record.status,jdbcType=CHAR},
-      CRATE_TIME = #{record.crateTime,jdbcType=TIMESTAMP},
-      MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
-      LAST_LOGIN_TIME = #{record.lastLoginTime,jdbcType=TIMESTAMP},
-      SSEX = #{record.ssex,jdbcType=CHAR},
-      THEME = #{record.theme,jdbcType=VARCHAR},
-      AVATAR = #{record.avatar,jdbcType=VARCHAR},
-      DESCRIPTION = #{record.description,jdbcType=VARCHAR}
+    set id = #{record.id,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      dept_id = #{record.deptId,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=CHAR},
+      status = #{record.status,jdbcType=CHAR},
+      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creater = #{record.creater,jdbcType=VARCHAR},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      modifier = #{record.modifier,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -292,64 +316,72 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.io.ssm.module.domain.user.CmUser">
     update cm_user
     <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
       <if test="username != null">
-        USERNAME = #{username,jdbcType=VARCHAR},
+        username = #{username,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
-        PASSWORD = #{password,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="deptId != null">
-        DEPT_ID = #{deptId,jdbcType=BIGINT},
+        dept_id = #{deptId,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
-        EMAIL = #{email,jdbcType=VARCHAR},
+        email = #{email,jdbcType=VARCHAR},
       </if>
       <if test="mobile != null">
-        MOBILE = #{mobile,jdbcType=VARCHAR},
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=CHAR},
       </if>
       <if test="status != null">
-        STATUS = #{status,jdbcType=CHAR},
-      </if>
-      <if test="crateTime != null">
-        CRATE_TIME = #{crateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifyTime != null">
-        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+        status = #{status,jdbcType=CHAR},
       </if>
       <if test="lastLoginTime != null">
-        LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="ssex != null">
-        SSEX = #{ssex,jdbcType=CHAR},
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="theme != null">
-        THEME = #{theme,jdbcType=VARCHAR},
+      <if test="picture != null">
+        picture = #{picture,jdbcType=VARCHAR},
       </if>
-      <if test="avatar != null">
-        AVATAR = #{avatar,jdbcType=VARCHAR},
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="description != null">
-        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      <if test="creater != null">
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=VARCHAR},
       </if>
     </set>
-    where USER_ID = #{userId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.io.ssm.module.domain.user.CmUser">
     update cm_user
-    set USERNAME = #{username,jdbcType=VARCHAR},
-      PASSWORD = #{password,jdbcType=VARCHAR},
-      DEPT_ID = #{deptId,jdbcType=BIGINT},
-      EMAIL = #{email,jdbcType=VARCHAR},
-      MOBILE = #{mobile,jdbcType=VARCHAR},
-      STATUS = #{status,jdbcType=CHAR},
-      CRATE_TIME = #{crateTime,jdbcType=TIMESTAMP},
-      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
-      LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
-      SSEX = #{ssex,jdbcType=CHAR},
-      THEME = #{theme,jdbcType=VARCHAR},
-      AVATAR = #{avatar,jdbcType=VARCHAR},
-      DESCRIPTION = #{description,jdbcType=VARCHAR}
-    where USER_ID = #{userId,jdbcType=BIGINT}
+    set user_id = #{userId,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      status = #{status,jdbcType=CHAR},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByExampleWithRowbounds" parameterType="com.io.ssm.module.domain.user.CmUserExample" resultMap="BaseResultMap">
     select

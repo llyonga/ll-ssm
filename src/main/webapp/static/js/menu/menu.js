@@ -66,6 +66,10 @@ $(function() {
 //菜单树点击事件
 function zTreeOnClick(event, treeId, treeNode) {
     debugger;
+    if (treeNode.level == 0) {
+        window.toastr.error("禁止修改根节点！","",{"positionClass": "toast-top-center"});
+        return;
+    }
     if (!treeNode.menuId) {
         resetForm("menu-form");
         $("#parentId").val(treeNode.parentId);
@@ -80,7 +84,8 @@ function zTreeOnClick(event, treeId, treeNode) {
         url : contextPath+'/menu/getMenuOne',
         success : function(d) {
             debugger;
-            if (d.code == 'ok') {
+            if (d.code == '1') {
+                $("#id").val(d.data.id);
                 $("#menuId").val(d.data.menuId);
                 $("#parentId").val(d.data.parentId);
                 $("#menuName").val(d.data.menuName);
@@ -133,7 +138,7 @@ function fncAdd() {
             data: {"json":JSON.stringify(obj)},
             url : contextPath+'/menu/addMenu',
             success : function(text) {
-                if (text.code == 'ok') {
+                if (text.code == '1') {
                     window.toastr.success(text.msg,"",{"positionClass": "toast-top-center"});
                     var zTree = $.fn.zTree.getZTreeObj("menuTree");
                     var nodes = zTree.getSelectedNodes();
@@ -141,6 +146,7 @@ function fncAdd() {
                     nodes[0].menuName=text.data.menuName;
                     nodes[0].parentId=text.data.parentId;
                     zTree.updateNode(nodes[0]);
+                    resetForm("menu-form");
                 }else {
                     window.toastr.error(text.msg,"",{"positionClass": "toast-top-center"});
                 }

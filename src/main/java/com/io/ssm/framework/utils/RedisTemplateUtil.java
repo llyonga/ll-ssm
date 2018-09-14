@@ -22,7 +22,7 @@ import org.springframework.util.CollectionUtils;
  * @version: 1.0
  */
 @Component
-public class RedisUtil {
+public class RedisTemplateUtil {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;

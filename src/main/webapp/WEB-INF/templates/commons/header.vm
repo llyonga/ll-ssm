@@ -3,8 +3,8 @@
 <!-- NAVBAR -->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="brand" style="text-align: center;vertical-align: middle;">
-##        <a href="/index"><img src="$!contextPath/static/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
-        <a href="$!contextPath/index" style="font-size: 20px;">权限管理系统</a>
+##        <a href="$!contextPath/index"><img src="$!contextPath/static/assets/img/logo-dark.jpg" alt="Klorofil Logo" class="img-responsive logo"></a>
+        <a href="$!contextPath/index" style="font-size: 20px;">RBAC权限管理</a>
     </div>
     <div class="container-fluid">
         <div class="navbar-btn">

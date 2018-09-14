@@ -37,7 +37,7 @@
             type : "post",
             url : '$!contextPath/menu/getList',
             success : function(data) {
-                GetData('1', data);
+                GetData('1000001', data);
                 menus = menus.substring(0,menus.length-6);
                 $("#nav").append(menus);
 

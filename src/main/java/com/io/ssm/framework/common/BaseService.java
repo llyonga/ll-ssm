@@ -17,7 +17,7 @@ public interface BaseService<T> {
 
     int deleteByExample(T t);
 
-    int deleteByPrimaryKey(Long userId);
+    int deleteByPrimaryKey(Long id);
 
     int insert(T t);
 

@@ -104,7 +104,7 @@
 				 data: data,
 				 url : '$!contextPath/login',
 				 success : function(data) {
-				 	 if (data.code == 'ok') {
+				 	 if (data.code == '1') {
 				 	     fncTurnToPage("/index");
 				 	 } else {
 				 		 $("#msg").text(data.msg);

@@ -129,7 +129,7 @@
                 <h4 class="modal-title" id="myModalLabel">用户信息</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" role="form" style="height:400px;overflow-y: auto; overflow-x: hidden; ">
+                <form class="form-horizontal" role="form" style="height:400px;overflow-y: auto; overflow-x: hidden; " id="user-form">
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="username1">用户名</label>
                         <div class="col-sm-4 ">

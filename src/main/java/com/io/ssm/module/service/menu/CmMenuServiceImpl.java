@@ -45,18 +45,18 @@ public class CmMenuServiceImpl implements CmMenuService {
     }
 
     @Override
-    public int deleteByPrimaryKey(Long userId) {
-        return 0;
+    public int deleteByPrimaryKey(Long id) {
+        return cmMenuMapper.deleteByPrimaryKey(id);
     }
 
     @Override
     public int insert(CmMenu cmMenu) {
-        return 0;
+        return cmMenuMapper.insert(cmMenu);
     }
 
     @Override
     public int insertSelective(CmMenu cmMenu) {
-        return 0;
+        return cmMenuMapper.insertSelective(cmMenu);
     }
 
     private CmMenuExample getExampleDto(CmMenu cmMenu) {
@@ -105,26 +105,28 @@ public class CmMenuServiceImpl implements CmMenuService {
 
     @Override
     public CmMenu selectByPrimaryKey(Long var) {
-        return null;
+        return cmMenuMapper.selectByPrimaryKey(var);
     }
 
     @Override
     public int updateByExampleSelective(CmMenu cmMenu) {
-        return 0;
+        CmMenuExample example = getExampleDto(cmMenu);
+        return cmMenuMapper.updateByExampleSelective(cmMenu,example);
     }
 
     @Override
     public int updateByExample(CmMenu cmMenu) {
-        return 0;
+        CmMenuExample example = getExampleDto(cmMenu);
+        return cmMenuMapper.updateByExample(cmMenu,example);
     }
 
     @Override
     public int updateByPrimaryKeySelective(CmMenu cmMenu) {
-        return 0;
+        return cmMenuMapper.updateByPrimaryKeySelective(cmMenu);
     }
 
     @Override
     public int updateByPrimaryKey(CmMenu cmMenu) {
-        return 0;
+        return cmMenuMapper.updateByPrimaryKey(cmMenu);
     }
 }

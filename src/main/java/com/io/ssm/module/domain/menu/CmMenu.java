@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class CmMenu implements Serializable {
-    private Long menuId;
+    private Long id;
 
-    private Long parentId;
+    private String menuId;
 
     private String menuName;
+
+    private String parentId;
 
     private String url;
 
@@ -16,34 +18,34 @@ public class CmMenu implements Serializable {
 
     private String icon;
 
-    private String type;
-
     private Integer mid;
 
-    private Long orderNum;
+    private Integer seq;
+
+    private String creater;
 
     private Date createTime;
 
-    private Date modifyTime;
+    private String modifier;
 
-    private String perms;
+    private Date modifyTime;
 
     private static final long serialVersionUID = 1L;
 
-    public Long getMenuId() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getMenuId() {
         return menuId;
     }
 
-    public void setMenuId(Long menuId) {
-        this.menuId = menuId;
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setMenuId(String menuId) {
+        this.menuId = menuId == null ? null : menuId.trim();
     }
 
     public String getMenuName() {
@@ -52,6 +54,14 @@ public class CmMenu implements Serializable {
 
     public void setMenuName(String menuName) {
         this.menuName = menuName == null ? null : menuName.trim();
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId == null ? null : parentId.trim();
     }
 
     public String getUrl() {
@@ -78,14 +88,6 @@ public class CmMenu implements Serializable {
         this.icon = icon == null ? null : icon.trim();
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
-    }
-
     public Integer getMid() {
         return mid;
     }
@@ -94,12 +96,20 @@ public class CmMenu implements Serializable {
         this.mid = mid;
     }
 
-    public Long getOrderNum() {
-        return orderNum;
+    public Integer getSeq() {
+        return seq;
     }
 
-    public void setOrderNum(Long orderNum) {
-        this.orderNum = orderNum;
+    public void setSeq(Integer seq) {
+        this.seq = seq;
+    }
+
+    public String getCreater() {
+        return creater;
+    }
+
+    public void setCreater(String creater) {
+        this.creater = creater == null ? null : creater.trim();
     }
 
     public Date getCreateTime() {
@@ -110,6 +120,14 @@ public class CmMenu implements Serializable {
         this.createTime = createTime;
     }
 
+    public String getModifier() {
+        return modifier;
+    }
+
+    public void setModifier(String modifier) {
+        this.modifier = modifier == null ? null : modifier.trim();
+    }
+
     public Date getModifyTime() {
         return modifyTime;
     }
@@ -118,32 +136,25 @@ public class CmMenu implements Serializable {
         this.modifyTime = modifyTime;
     }
 
-    public String getPerms() {
-        return perms;
-    }
-
-    public void setPerms(String perms) {
-        this.perms = perms == null ? null : perms.trim();
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", menuId=").append(menuId);
-        sb.append(", parentId=").append(parentId);
         sb.append(", menuName=").append(menuName);
+        sb.append(", parentId=").append(parentId);
         sb.append(", url=").append(url);
         sb.append(", level=").append(level);
         sb.append(", icon=").append(icon);
-        sb.append(", type=").append(type);
         sb.append(", mid=").append(mid);
-        sb.append(", orderNum=").append(orderNum);
+        sb.append(", seq=").append(seq);
+        sb.append(", creater=").append(creater);
         sb.append(", createTime=").append(createTime);
+        sb.append(", modifier=").append(modifier);
         sb.append(", modifyTime=").append(modifyTime);
-        sb.append(", perms=").append(perms);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
